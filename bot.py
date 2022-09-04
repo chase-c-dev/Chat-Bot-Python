@@ -1,6 +1,5 @@
-# PLAN:
-# Create or Edit SQL database and add answers to questions for Bot
-# Implement Bot Into Portfolio Website, Make Separate Menu to Access the Bot in the corner of the website
+# Plan
+# Integrate with Flask and Host as API on Heroku
 
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
@@ -25,15 +24,16 @@ maintrainer = ChatterBotCorpusTrainer(bot)
 maintrainer.train("chatterbot.corpus.english") 
 
 # Runs The Bot
-def botrunner():
+def botrunner(answer):
+    chatstart()
     while True:
         try:
-            user_input = input()
+            user_input = answer
             bot_response = bot.get_response(user_input)
             if bot_response.confidence < .2:
-                print("Sorry I do not understand that")
+                return "Sorry I do not Understand That"
             else:
-                print(bot_response)
+                return bot_response
         except(KeyboardInterrupt, EOFError, SystemExit):
             break
 
@@ -67,8 +67,5 @@ def chatstart():
     trainer = ListTrainer(bot)
 
     trainer.train(conversation)
-
-chatstart()
-botrunner()
 
 # Function Run Section
